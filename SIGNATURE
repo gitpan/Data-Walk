@@ -1,0 +1,44 @@
+This file contains message digests of all files listed in MANIFEST,
+signed via the Module::Signature module, version 0.50.
+
+To verify the content in this distribution, first make sure you have
+Module::Signature installed, then type:
+
+    % cpansign -v
+
+It will check each file's integrity, as well as the signature's
+validity.  If "==> Signature verified OK! <==" is not displayed,
+the distribution may already have been compromised, and you should
+not run its Makefile.PL or Build.PL.
+
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA1
+
+SHA1 86ef6ebd08c6bf3a6c2505fe76d13c0c146bee20 Build.PL
+SHA1 cf756914ec51f52f9c121be247bfda232dc6afd2 COPYING.LESSER
+SHA1 e5857875856e42e3305fa4ab612c2929c5e92c42 ChangeLog
+SHA1 3b39116006c70423891280a040bddb65083bcbff MANIFEST
+SHA1 a86185ef7f41f8ab971a782c3570ddd23519c0f1 META.yml
+SHA1 e63a27e82a2da7e300e86a43a3eb9d63fa7c2378 Makefile.PL
+SHA1 3c0d8ef4462b9658bb2e8e680223c2c746d0b875 NEWS
+SHA1 d4719df45c2d61df0e2b8aeeced29123ce49a7b8 README
+SHA1 52967bec718729d616986aad1db67c1cfe46fcb8 ReleaseNotes
+SHA1 78af9abdd9eb61210281f1cf8efec1df247e1d89 lib/Data/Walk.pm
+SHA1 188479adc1c8f3ff0b971c55bf466f3e0012d5b0 t/TC_Basic.pm
+SHA1 a0f49e5a31b31a9849dbc3b4962ff8aac56cc3fb t/TC_Bugs.pm
+SHA1 6bfb457525163d6d167c2d75125c1befc29f0b03 t/TC_ByDepth.pm
+SHA1 528ebf76f8d7a7ea8aa3cc6e3e6a5132d5edbbff t/TC_Copy.pm
+SHA1 36a46abab05f3f19ba342dcf5d9008495a64efa5 t/TC_Follow.pm
+SHA1 33e597451ae69cbf6e3ededf9a783a5e67950d01 t/TC_PostProcess.pm
+SHA1 e2d5587b6e8d73a47e0478e4f8aa195aaa89f63a t/TC_PreProcess.pm
+SHA1 4812f74e68f900f9c40cf91367b7247ce8221328 t/TS_All.pm
+SHA1 3890407435e625e97c2b7ecd257055c44d6fae80 t/TS_Basic.pm
+SHA1 8ad5a360444979f950cc6b5418460873d31645c9 t/TS_Options.pm
+SHA1 334b6148e3ad4a842d1e4aaef294d2d6b3e2b829 t/testrunner.t
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v1.4.0 (GNU/Linux)
+
+iD8DBQFDlb+XOo0HNPWNDz0RAuEtAKCBHGvfNvJcvNXCIpTuEhy3cQVAkACcDGet
+o+8ZPJkNAJlyLmZ5UURSeHc=
+=pWj4
+-----END PGP SIGNATURE-----
