@@ -1,9 +1,9 @@
 #! /usr/local/bin/perl
 
-# $Id: testrunner.t,v 1.2 2005/11/10 19:24:10 guido Exp $
+# $Id: testrunner.t,v 1.3 2006/05/11 13:56:28 guido Exp $
 
 # Unit test runner.
-# Copyright (C) 2005 Guido Flohr <guido@imperia.net>,
+# Copyright (C) 2005-2006 Guido Flohr <guido@imperia.net>,
 # all rights reserved.
 
 # This program is free software; you can redistribute it and/or modify it

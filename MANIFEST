@@ -12,6 +12,7 @@ t/TC_Basic.pm			Basic test case
 t/TC_Bugs.pm			Test for previous bugs
 t/TC_ByDepth.pm			Option 'bydepth'
 t/TC_Copy.pm			Option 'copy'
+t/TC_Examples.pm                Test cases for example code
 t/TC_Follow.pm			Option 'follow'
 t/TC_PostProcess.pm		Options 'postprocess' and 'postprocess_hash'
 t/TC_PreProcess.pm		Option 'preprocess'

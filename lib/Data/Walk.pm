@@ -1,9 +1,9 @@
 #! /bin/false
 
-# $Id: Walk.pm,v 1.11 2005/12/06 16:42:03 guido Exp $
+# $Id: Walk.pm,v 1.15 2006/05/11 14:10:54 guido Exp $
 
 # Traverse Perl data structures.
-# Copyright (C) 2005 Guido Flohr <guido@imperia.net>,
+# Copyright (C) 2005-2006 Guido Flohr <guido@imperia.net>,
 # all rights reserved.
 
 # This program is free software; you can redistribute it and/or modify it
@@ -30,11 +30,11 @@ require Exporter;
 
 use vars qw ($VERSION @ISA @EXPORT);
 
-$VERSION = '0.02';
+$VERSION = '1.00';
 @ISA = qw (Exporter);
 @EXPORT = qw (walk walkdepth);
 
-use vars qw ($container $type $seen $address);
+use vars qw ($container $type $seen $address $depth);
 
 # Forward declarations.
 sub walk;
@@ -44,7 +44,7 @@ sub __recurse;
 
 sub walk {
     my ($options, @args) = @_;
-    
+   
     unless ('HASH' eq ref $options) {
 	$options = { wanted => $options };
     }
@@ -71,6 +71,8 @@ sub __walk {
     $options->{copy} = 1 unless exists $options->{copy};
 
     foreach my $item (@args) {
+    	local $depth;
+	$depth = 0;
 	__recurse $options, $item;
     }
     
@@ -80,6 +82,8 @@ sub __walk {
 sub __recurse {
     my ($options, $item) = @_;
 
+    ++$depth;
+    
     my @children;
     my $data_type;
 
@@ -90,14 +94,22 @@ sub __recurse {
 
     if ($ref) {
 	my $blessed = -1 != index $ref, '=';
+
+	# Avoid fancy overloading stuff.
 	bless $item if $blessed;
 	$address = int $item;
-	bless $item, $data_type if $blessed;
+	
 	$seen = $options->{seen}->{$address}++;
 
-	if ($item =~ /(HASH|ARRAY)\(0x[0-9a-f]+\)$/) {
-	    $data_type = $1;
-
+	if (UNIVERSAL::isa ($item, 'HASH')) {
+		$data_type = 'HASH';
+	} elsif (UNIVERSAL::isa ($item, 'ARRAY')) {
+		$data_type = 'ARRAY';
+	} else {
+		$data_type = '';
+	}
+	
+	if ($data_type eq 'HASH' || $data_type eq 'ARRAY') {
 	    if (('ARRAY' eq $data_type || 'HASH' eq $data_type)) {
 		if ('ARRAY' eq $data_type) {
 		    @children = @{$item};
@@ -148,6 +160,8 @@ sub __recurse {
     }
 
     $options->{postprocess}->() if $options->{postprocess};
+
+    --$depth;
     # void
 }
 
@@ -319,7 +333,7 @@ if an item is "wanted" or not.  In fact, its return value is
 ignored.
 
 The wanted function takes no arguments but rather does its work
-through a collection of variables.
+through a collection of variables:
 
 =over 4
 
@@ -349,6 +363,10 @@ is undefined.
 For references, this will hold the memory address it points to.  It
 can be used as a unique identifier for the current node.  For non-
 references, the value is undefined.
+
+=item B<$Data::Walk::depth>
+
+The depth of the current recursion.
 
 =back
 
@@ -405,9 +423,45 @@ useful, too, allowing you to recursively untaint data structures.
 But, hey, that is what Data::Walk(3pm) is all about.  It makes
 it very easy for you to write that yourself.
 
+=head1 EXAMPLES
+
+Following are some recipies for common tasks.  
+
+=head2 Recursive Untainting
+
+    sub untaint { 
+    	s/(.*)/$1/s unless ref $_;
+    };
+    walk \&untaint, $data;
+
+See perlsec(1), if you don't understand why the untaint() function
+untaints your data here.
+
+=head2 Recurse To Maximum Depth
+
+If you want to stop the recursion at a certain level, do it as follows:
+
+    my $max_depth = 20;
+    sub not_too_deep {
+        if ($Data::Walk::depth > $max_depth) {
+	    return ();
+        } else {
+	    return @_;
+        }
+    }
+    sub do_something1 {
+    	# Your code goes here.
+    }
+    walk { wanted => \&do_something, preprocess => \&not_too_deep };
+
+=head1 BUGS
+
+If you think you have spotted a bug, you can share it with others in the
+bug tracking system at http://rt.cpan.org/NoAuth/Bugs.html?Dist=Data-Walk.
+
 =head1 COPYING
 
-Copyright (C) 2005, Guido Flohr E<lt>guido@imperia.netE<gt>, all
+Copyright (C) 2005-2006, Guido Flohr E<lt>guido@imperia.netE<gt>, all
 rights reserved.
 
 This program is free software; you can redistribute it and/or modify it

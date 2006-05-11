@@ -1,9 +1,9 @@
 #! /usr/local/bin/perl -w # -*- perl -*-
 
-# $Id: Makefile.PL,v 1.5 2005/12/06 16:41:04 guido Exp $
+# $Id: Makefile.PL,v 1.6 2006/05/11 13:56:28 guido Exp $
 
 # Makefile generator for Data-Find.
-# Copyright (C) 2005 Guido Flohr <guido@imperia.net>, 
+# Copyright (C) 2005-2006 Guido Flohr <guido@imperia.net>, 
 # all rights reserved.
 
 # This program is free software; you can redistribute it and/or modify it

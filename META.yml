@@ -1,6 +1,6 @@
 --- #YAML:1.0
 name:                Data-Walk
-version:             0.02
+version:             1.00
 abstract:            Traverse Perl data structures.
 license:             lgpl
 generated_by:        ExtUtils::MakeMaker version 6.30_01

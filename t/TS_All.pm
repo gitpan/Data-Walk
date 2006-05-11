@@ -1,9 +1,9 @@
 #! /bin/false
 
-# $Id: TS_All.pm,v 1.9 2005/11/15 11:19:32 guido Exp $
+# $Id: TS_All.pm,v 1.11 2006/05/11 13:56:28 guido Exp $
 
 # Data::Walk - Traverse Perl data structures.
-# Copyright (C) 2005 Guido Flohr <guido@imperia.net>,
+# Copyright (C) 2005-2006 Guido Flohr <guido@imperia.net>,
 # all rights reserved.
 
 # This program is free software; you can redistribute it and/or modify it
@@ -32,6 +32,7 @@ sub include_tests {
     qw (
 	TS_Basic
 	TS_Options
+	TC_Examples
 	TC_Bugs
 	);
     }

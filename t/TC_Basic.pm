@@ -1,9 +1,9 @@
 #! /bin/false
 
-# $Id: TC_Basic.pm,v 1.4 2005/11/15 11:19:32 guido Exp $
+# $Id: TC_Basic.pm,v 1.6 2006/05/11 13:56:28 guido Exp $
 
 # Data::Walk - Traverse Perl data structures.
-# Copyright (C) 2005 Guido Flohr <guido@imperia.net>,
+# Copyright (C) 2005-2006 Guido Flohr <guido@imperia.net>,
 # all rights reserved.
 
 # This program is free software; you can redistribute it and/or modify it
@@ -173,6 +173,29 @@ sub testTraverse {
     $self->assert (!$wasref, 
 		   "The last visited node should not be "
 		   . "a reference.");
+}
+
+sub testDepth {
+	my $self = shift;
+
+	# The test data is constructed so that each node that is an
+	# array reference has a number of elements equal to its depth.
+	# Scalars are also equal to their depth.
+	my $data = [
+		[
+			3, [ 4, 4, 4, ],
+		],
+	];
+
+	my $wanted = sub {
+		if (ref $_) {
+			my $num = @$_;
+			$self->assert_num_equals ($num, $Data::Walk::depth);
+		} else {
+			$self->assert_num_equals ($_, $Data::Walk::depth);
+		}
+	};
+	walk $wanted, $data;
 }
 
 1;
